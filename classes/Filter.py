@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import Image
 from classes.File import File
 
@@ -13,6 +14,11 @@ class Filter:
 
     def getChangedImage(self):
         return 0
+
+    def most_frequent(self, vetor):
+        unique, counts = np.unique(vetor, return_counts=True)
+        index = np.argmax(counts)
+        return unique[index]
 
     def covertImageToGrayscale(self):
         originalImageMap = self.changedImage.convertImageToMap()
@@ -56,24 +62,66 @@ class Filter:
         self.changedImage = self.covertImageToGrayscale()
         changedImageMap = self.changedImage.convertImageToMap()
 
-        for y in range(self.changedImage.getWidth()-1):
-            for x in range(self.changedImage.getHeight()-1):
+        for x in range(self.changedImage.getWidth()-1):
+            for y in range(self.changedImage.getHeight()-1):
 
-                i, j, frequente = 0, 0, 0
-                moda = list()
-                for i in range(3):
-                    for j in range(3):
-                        r, g, b, p = self.changedImage.image.getpixel((x+(i-1),  y+(j-1)))
-                        moda.append(r)
-                frequente = max(set(moda), key=moda.count)
+                lista = list()
+                r, g, b, p = self.changedImage.image.getpixel((y-1, x-1))
+                lista.append(r)
 
-                del moda
-                changedImageMap[x, y] = (int(frequente), int(frequente), int(frequente))
+                r, g, b, p = self.changedImage.image.getpixel((y - 1, x))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y - 1, x + 1))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y, x - 1))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y, x))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y, x + 1))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y + 1, x - 1))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y + 1, x))
+                lista.append(r)
+
+                r, g, b, p = self.changedImage.image.getpixel((y + 1, x + 1))
+                lista.append(r)
+
+                changedImageMap[y-1, x-1] = (self.most_frequent(lista), self.most_frequent(lista), self.most_frequent(lista))
+                del lista
 
         self.changedImage.image.save("attachment/moda." + self.originalImage.getExtencial(),
                                      format=self.originalImage.image.format)
         self.changedImage.setFile("attachment/moda." + self.originalImage.getExtencial())
         return self.changedImage
+        # self.changedImage = self.covertImageToGrayscale()
+        # changedImageMap = self.changedImage.convertImageToMap()
+        #
+        # for y in range(1, self.changedImage.getWidth()-1):
+        #     for x in range(1, self.changedImage.getHeight()-1):
+        #
+        #         i, j, frequente = 1, 1, 0
+        #         moda = list()
+        #         for i in range(3):
+        #             for j in range(3):
+        #                 r, g, b, p = changedImageMap[(x+(i-1),  y+(j-1))]
+        #                 moda.append(int(r))
+        #
+        #         frequente = max(set(moda))
+        #         if frequente < 250:
+        #             print(frequente)
+        #         changedImageMap[x, y] = (frequente, frequente, frequente)
+        #
+        # self.changedImage.image.save("attachment/moda." + self.originalImage.getExtencial(),
+        #                              format=self.originalImage.image.format)
+        # self.changedImage.setFile("attachment/moda." + self.originalImage.getExtencial())
+        # return self.changedImage
 
     def covertImageToMediana(self):
         self.changedImage = self.covertImageToGrayscale()
@@ -82,7 +130,7 @@ class Filter:
         for y in range(self.changedImage.getWidth()-1):
             for x in range(self.changedImage.getHeight()-1):
 
-                i, j, frequente = 0, 0, 0
+                i, j = 1, 1
                 lista = list()
                 for i in range(3):
                     for j in range(3):
@@ -90,7 +138,7 @@ class Filter:
                         lista.append(int(r))
 
                 lista.sort()
-                changedImageMap[x, y] = (lista[5], lista[5], lista[5])
+                changedImageMap[x, y] = (lista[4], lista[4], lista[4])
                 del lista
 
         self.changedImage.image.save("attachment/mediana." + self.originalImage.getExtencial(),
@@ -106,14 +154,14 @@ class Filter:
                 [2, 4, 2],
                 [1, 2, 1]]
 
-        for y in range(self.changedImage.getWidth()-1):
-            for x in range(self.changedImage.getHeight()-1):
+        for y in range(1, self.changedImage.getWidth()-1):
+            for x in range(1, self.changedImage.getHeight()-1):
 
                 i, j, z = 0, 0, 0
                 for i in range(3):
                     for j in range(3):
                         r, g, b, p = self.changedImage.image.getpixel((x+(i-1),  y+(j-1)))
-                        z = z + r * mask[i][j]
+                        z += r * mask[i][j]
 
                 changedImageMap[x, y] = (int(z/16), int(z/16), int(z/16))
 

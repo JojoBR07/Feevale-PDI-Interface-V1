@@ -20,7 +20,7 @@ changed = [
 menu_def = [
     ['&Arquivo', ['Abrir imagem', '&Salvar imagem::savekey', '---', '!&Sobre', '&Sair', ]],
     ['Transformações Geométricas', ['Transladar', 'Rotacionar', 'Espelhar', 'Aumentar', 'Diminuir']],
-    ['Filtros', ['Grayscale', 'Passa Baixa', 'Passa Alta', 'Threshold']],
+    ['Filtros', ['Grayscale', 'Passa Baixa', ['Média', 'Mediana', 'Moda', 'Gauss', 'Passa Baixa'], 'Passa Alta', 'Threshold']],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
     ['Extração de Caracteristicas', ['---', '!&DESAFIO', '---']]
 ]
@@ -62,16 +62,16 @@ while True:
         window['-BT_MEDIANA-'].update(visible=True)
         window['-BT_MODA-'].update(visible=True)
         window['-BT_GAUSS-'].update(visible=True)
-    elif event in ('-BT_MEDIA-'):
+    elif event in ('-BT_MEDIA-', 'Média'):
         changedImage = filters.covertImageToMedia()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
-    elif event in ('-BT_MODA-'):
+    elif event in ('-BT_MODA-', 'Moda'):
         changedImage = filters.covertImageToModa()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
-    elif event in ('-BT_MEDIANA-'):
+    elif event in ('-BT_MEDIANA-', 'Mediana'):
         changedImage = filters.covertImageToMediana()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
-    elif event in ('-BT_GAUSS-'):
+    elif event in ('-BT_GAUSS-', 'Gauss'):
         changedImage = filters.covertImageToGlauss()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
