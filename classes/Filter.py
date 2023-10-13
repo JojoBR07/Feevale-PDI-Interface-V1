@@ -100,28 +100,6 @@ class Filter:
                                      format=self.originalImage.image.format)
         self.changedImage.setFile("attachment/moda." + self.originalImage.getExtencial())
         return self.changedImage
-        # self.changedImage = self.covertImageToGrayscale()
-        # changedImageMap = self.changedImage.convertImageToMap()
-        #
-        # for y in range(1, self.changedImage.getWidth()-1):
-        #     for x in range(1, self.changedImage.getHeight()-1):
-        #
-        #         i, j, frequente = 1, 1, 0
-        #         moda = list()
-        #         for i in range(3):
-        #             for j in range(3):
-        #                 r, g, b, p = changedImageMap[(x+(i-1),  y+(j-1))]
-        #                 moda.append(int(r))
-        #
-        #         frequente = max(set(moda))
-        #         if frequente < 250:
-        #             print(frequente)
-        #         changedImageMap[x, y] = (frequente, frequente, frequente)
-        #
-        # self.changedImage.image.save("attachment/moda." + self.originalImage.getExtencial(),
-        #                              format=self.originalImage.image.format)
-        # self.changedImage.setFile("attachment/moda." + self.originalImage.getExtencial())
-        # return self.changedImage
 
     def covertImageToMediana(self):
         self.changedImage = self.covertImageToGrayscale()

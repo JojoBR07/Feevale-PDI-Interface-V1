@@ -21,7 +21,7 @@ changed = [
 
 menu_def = [
     ['&Arquivo', ['Abrir imagem', '&Salvar imagem::savekey', '---', '!&Sobre', '&Sair', ]],
-    ['Transformações Geométricas', ['Transladar', 'Rotacionar', 'Espelhar', 'Aumentar', 'Diminuir']],
+    ['Transformações Geométricas', ['Transladar', 'Rotacionar', 'Espelhar', 'Escala', ['Aumentar', 'Diminuir']]],
     ['Filtros', ['Grayscale', 'Passa Baixa', ['Média', 'Mediana', 'Moda', 'Gauss', 'Passa Baixa'], 'Passa Alta', 'Threshold']],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
     ['Extração de Caracteristicas', ['---', '!&DESAFIO', '---']]
@@ -80,6 +80,12 @@ while True:
         x = sg.popup_get_text("Insira o deslocamento HORIZONTAL da imagem: ", title="Traslação")
         y = sg.popup_get_text("Insira o deslocamento VERTICAL da imagem: ", title="Traslação")
         changedImage = transformations.translateImage(int(x), int(y))
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Aumentar'):
+        changedImage = transformations.scaleImage(2)
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Diminuir'):
+        changedImage = transformations.scaleImage(0.5)
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':
