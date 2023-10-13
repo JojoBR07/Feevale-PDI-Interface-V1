@@ -1,11 +1,13 @@
 from classes.File import File
 from classes.Filter import Filter
+from classes.GeometricTransformations import GeometricTransformations
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
 originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
 changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
 filters = Filter(originalImage, changedImage)
+transformations = GeometricTransformations(originalImage, changedImage)
 
 original = [
     [sg.Text(text='Imagem Original', font=('Arial Bold', 16), size=20, expand_x=True, justification='center')],
@@ -73,6 +75,11 @@ while True:
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('-BT_GAUSS-', 'Gauss'):
         changedImage = filters.covertImageToGlauss()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Transladar'):
+        x = sg.popup_get_text("Insira o deslocamento HORIZONTAL da imagem: ", title="Traslação")
+        y = sg.popup_get_text("Insira o deslocamento VERTICAL da imagem: ", title="Traslação")
+        changedImage = transformations.translateImage(int(x), int(y))
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':
