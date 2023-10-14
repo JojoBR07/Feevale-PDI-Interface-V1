@@ -60,7 +60,7 @@ while True:
     elif event in ('Salvar imagem'):
         changedImage.saveFile(sg.popup_get_folder('Selecione um diretório', title="Salvar imagem"))
     elif event in ('Sobre'):
-        sg.popup('Desenvolvedor: Joilson de Oliveira Telles', 'Versão do Software: 1.7', title="Sobre")
+        sg.popup('Desenvolvedor: Joilson de Oliveira Telles', 'Versão do Software: 1.8', title="Sobre")
     elif event in ('Grayscale'):
         changedImage = filters.covertImageToGrayscale()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
