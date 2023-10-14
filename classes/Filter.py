@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageEnhance
 from classes.File import File
 
 
@@ -146,4 +146,36 @@ class Filter:
         self.changedImage.image.save("attachment/glauss." + self.originalImage.getExtencial(),
                                      format=self.originalImage.image.format)
         self.changedImage.setFile("attachment/glauss." + self.originalImage.getExtencial())
+        return self.changedImage
+
+    def brightness(self, value):
+        originalImageMap = self.changedImage.convertImageToMap()
+
+        for i in range(self.originalImage.getWidth()):
+            for j in range(self.originalImage.getHeight()):
+                r, g, b, p = self.originalImage.image.getpixel((i, j))
+                r = 1 * r + value
+                g = 1 * g + value
+                b = 1 * b + value
+                originalImageMap[i, j] = (int(r), int(g), int(b))
+
+        self.changedImage.image.save("attachment/brightness." + self.originalImage.getExtencial(),
+                                     format=self.originalImage.image.format)
+        self.changedImage.setFile("attachment/brightness." + self.originalImage.getExtencial())
+        return self.changedImage
+    
+    def contrast(self, value):
+        originalImageMap = self.changedImage.convertImageToMap()
+
+        for i in range(self.originalImage.getWidth()):
+            for j in range(self.originalImage.getHeight()):
+                r, g, b, p = self.originalImage.image.getpixel((i, j))
+                r = value * (r-128) + 128 # Aumentar e Reduzir 128 para manter o ponto médio (Recomendação chatgpt)
+                g = value * (g-128) + 128 # Aumentar e Reduzir 128 para manter o ponto médio (Recomendação chatgpt)
+                b = value * (b-128) + 128 # Aumentar e Reduzir 128 para manter o ponto médio (Recomendação chatgpt)
+                originalImageMap[i, j] = (int(r), int(g), int(b))
+
+        self.changedImage.image.save("attachment/contrast." + self.originalImage.getExtencial(),
+                                     format=self.originalImage.image.format)
+        self.changedImage.setFile("attachment/contrast." + self.originalImage.getExtencial())
         return self.changedImage

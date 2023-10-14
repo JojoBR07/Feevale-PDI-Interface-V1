@@ -21,8 +21,9 @@ changed = [
 
 menu_def = [
     ['&Arquivo', ['Abrir imagem', '&Salvar imagem::savekey', '---', '!&Sobre', '&Sair', ]],
-    ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
     ['Filtros', ['Grayscale', 'Passa Baixa', ['Média', 'Mediana', 'Moda', 'Gauss', 'Passa Baixa'], 'Passa Alta', 'Threshold']],
+    ['Transformações', ['Brilho', 'Contrate']],
+    ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
     ['Extração de Caracteristicas', ['---', '!&DESAFIO', '---']]
 ]
@@ -101,6 +102,14 @@ while True:
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('90°'):
         changedImage = transformations.rotationingImage(90)
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Brilho'):
+        value = sg.popup_get_text("Insira o modificador de brilho: ", title="Brilho")
+        changedImage = filters.brightness(float(value))
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Contrate'):
+        value = sg.popup_get_text("Insira o modificador de contraste: ", title="Contraste")
+        changedImage = filters.contrast(float(value))
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':
