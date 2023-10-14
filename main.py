@@ -21,7 +21,7 @@ changed = [
 
 menu_def = [
     ['&Arquivo', ['Abrir imagem', '&Salvar imagem::savekey', '---', '!&Sobre', '&Sair', ]],
-    ['Transformações Geométricas', ['Transladar', 'Rotacionar', 'Espelhar', 'Escala', ['Aumentar', 'Diminuir']]],
+    ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
     ['Filtros', ['Grayscale', 'Passa Baixa', ['Média', 'Mediana', 'Moda', 'Gauss', 'Passa Baixa'], 'Passa Alta', 'Threshold']],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
     ['Extração de Caracteristicas', ['---', '!&DESAFIO', '---']]
@@ -82,10 +82,25 @@ while True:
         changedImage = transformations.translateImage(int(x), int(y))
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Aumentar'):
-        changedImage = transformations.scaleImage(2)
+        changedImage = transformations.scaleImage(3)
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Diminuir'):
-        changedImage = transformations.scaleImage(0.5)
+        changedImage = transformations.scaleImage(0.33)
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Horizontal'):
+        changedImage = transformations.horizontalMirroringImage()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Vertical'):
+        changedImage = transformations.verticalMirroringImage()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('10°'):
+        changedImage = transformations.rotationingImage(10)
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('45°'):
+        changedImage = transformations.rotationingImage(45)
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('90°'):
+        changedImage = transformations.rotationingImage(90)
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':
