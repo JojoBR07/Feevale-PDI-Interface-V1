@@ -20,7 +20,7 @@ changed = [
 ]
 
 menu_def = [
-    ['&Arquivo', ['Abrir imagem', '&Salvar imagem::savekey', '---', '!&Sobre', '&Sair', ]],
+    ['&Arquivo', ['Abrir imagem', '&Salvar imagem', '---', '&Sobre', '&Sair', ]],
     ['Filtros', ['Grayscale', 'Passa Baixa', ['Média', 'Mediana', 'Moda', 'Gauss', 'Passa Baixa'], 'Passa Alta', 'Threshold']],
     ['Transformações', ['Brilho', 'Contrate']],
     ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
@@ -55,8 +55,12 @@ while True:
         break
     elif event in ('Abrir imagem'):
         originalImage.setFile(sg.popup_get_file('Selecione um arquivo', title="Arquivos"))
-        print(originalImage)
+        changedImage.setFile(originalImage.getFile())
         window["-ORIGINAL_IMAGE-"].update(originalImage.getFile())
+    elif event in ('Salvar imagem'):
+        changedImage.saveFile(sg.popup_get_folder('Selecione um diretório', title="Salvar imagem"))
+    elif event in ('Sobre'):
+        sg.popup('Desenvolvedor: Joilson de Oliveira Telles', 'Versão do Software: 1.7', title="Sobre")
     elif event in ('Grayscale'):
         changedImage = filters.covertImageToGrayscale()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())

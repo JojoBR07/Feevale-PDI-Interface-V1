@@ -23,8 +23,8 @@ class Filter:
     def covertImageToGrayscale(self):
         originalImageMap = self.changedImage.convertImageToMap()
 
-        for i in range(self.originalImage.getWidth()):
-            for j in range(self.originalImage.getHeight()):
+        for i in range(self.originalImage.getHeight()):
+            for j in range(self.originalImage.getWidth()):
                 r, g, b, p = self.originalImage.image.getpixel((i, j))
                 grayscale = (r + g + b) / 3
                 originalImageMap[i, j] = (int(grayscale), int(grayscale), int(grayscale))

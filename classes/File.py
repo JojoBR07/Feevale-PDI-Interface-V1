@@ -17,8 +17,8 @@ class File:
         return "Name: " + self.name
 
     # Retrieves instance variable
-    def saveFile(self):
-        return self.test
+    def saveFile(self, path):
+        self.image.save(path + "/" + self.getName(), format=self.image.format)
 
     def setFile(self, path):
         self.path = path
