@@ -1,6 +1,7 @@
 from classes.File import File
 from classes.Filter import Filter
 from classes.GeometricTransformations import GeometricTransformations
+from classes.MathematicalMorphology import MathematicalMorphology
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
@@ -8,6 +9,7 @@ originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachme
 changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
+morphology = MathematicalMorphology(originalImage, changedImage)
 
 original = [
     [sg.Text(text='Imagem Original', font=('Arial Bold', 16), size=20, expand_x=True, justification='center')],
@@ -114,6 +116,9 @@ while True:
     elif event in ('Contrate'):
         value = sg.popup_get_text("Insira o modificador de contraste: ", title="Contraste")
         changedImage = filters.contrast(float(value))
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Dilatação'):
+        changedImage = morphology.dilation()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':

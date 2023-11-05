@@ -1,5 +1,4 @@
 import numpy as np
-from PIL import Image, ImageEnhance
 from classes.File import File
 
 
@@ -59,6 +58,7 @@ class Filter:
         return self.changedImage
 
     def covertImageToModa(self):
+        self.changedImage.setFile(self.originalImage.getFile())
         self.changedImage = self.covertImageToGrayscale()
         changedImageMap = self.changedImage.convertImageToMap()
 
