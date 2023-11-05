@@ -5,8 +5,8 @@ from classes.MathematicalMorphology import MathematicalMorphology
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
-originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
-changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
+originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/exemplo.png")
+changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/exemplo.png")
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
 morphology = MathematicalMorphology(originalImage, changedImage)
@@ -119,6 +119,9 @@ while True:
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Dilatação'):
         changedImage = morphology.dilation()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Erosão'):
+        changedImage = morphology.erosion()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':

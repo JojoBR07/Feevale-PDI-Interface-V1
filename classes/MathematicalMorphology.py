@@ -11,28 +11,76 @@ class MathematicalMorphology:
         self.changedImage.setFile(self.originalImage.getFile())
 
     def dilation(self):
-        originalImageMap = self.changedImage.convertImageToMap()
+        changedImageMap = self.changedImage.convertImageToMap()
 
-        for y in range(1, self.changedImage.getWidth()-1):
-            for x in range(1, self.changedImage.getHeight()-1):
-                i, j = 0, 0
+        for y in range(1, self.changedImage.getWidth()-2):
+            for x in range(1, self.changedImage.getHeight()-2):
 
-                r, g, b, p = self.changedImage.image.getpixel((y,  x))
-
-                if(r+10 < 255): r = r + 10 
-                else: r = 255
-                if(g+10 < 255): g = g + 10 
-                else: g = 255
-                if(b+10 < 255): b = b + 10 
-                else: b = 255
+                red = 0
+                greem = 0
+                blue = 0
 
                 for i in range(3):
                     for j in range(3):
-                        originalImageMap[y+(i-1), x+(j-1)] = (r, g, b)
-
-        self.changedImage.image.save("attachment/dilation." + self.originalImage.getExtencial(),
-                                format=self.originalImage.image.format)
-        self.changedImage.setFile("attachment/dilation." + self.originalImage.getExtencial())
-        return self.changedImage
-
+                        r, g, b, p = self.originalImage.image.getpixel((x+(i-1),  y+(j-1)))
                         
+                        if (r > red):
+                            red = r
+                            greem = g
+                            blue = b
+                
+                if ((red+greem+blue)/3 > 128):
+
+                    if(red+10 < 255): red = red + 10 
+                    else: red = 255
+                    if(greem+10 < 255): greem = greem + 10 
+                    else: greem = 255
+                    if(blue+10 < 255): blue = blue + 10 
+                    else: blue = 255
+
+                    for i in range(3):
+                        for j in range(3):
+                            changedImageMap[x+(i-1), y+(j-1)] = red, greem, blue
+        
+        self.changedImage.image.save("attachment/dilation." + self.changedImage.getExtencial(),
+                                     format=self.originalImage.image.format)
+        self.changedImage.setFile("attachment/dilation." + self.changedImage.getExtencial())
+        return self.changedImage
+    
+    def erosion(self):
+        changedImageMap = self.changedImage.convertImageToMap()
+
+        for y in range(1, self.changedImage.getWidth()-2):
+            for x in range(1, self.changedImage.getHeight()-2):
+
+                red = 0
+                greem = 0
+                blue = 0
+
+                for i in range(3):
+                    for j in range(3):
+                        r, g, b, p = self.originalImage.image.getpixel((x+(i-1),  y+(j-1)))
+                        
+                        if (r < red):
+                            red = r
+                            greem = g
+                            blue = b
+
+                r, g, b, p = self.originalImage.image.getpixel((x,  y))
+                if r < 128:
+                    if(red-10 > 0): red = red - 10 
+                    else: red = 0
+                    if(greem-10 > 0): greem = greem - 10 
+                    else: greem = 0
+                    if(blue-10 > 0): blue = blue - 10 
+                    else: blue = 0
+
+
+                    for i in range(3):
+                        for j in range(3):
+                            changedImageMap[x+(i-1), y+(j-1)] = red, greem, blue
+        
+        self.changedImage.image.save("attachment/erosion." + self.changedImage.getExtencial(),
+                                     format=self.originalImage.image.format)
+        self.changedImage.setFile("attachment/erosion." + self.changedImage.getExtencial())
+        return self.changedImage
