@@ -124,8 +124,10 @@ while True:
         changedImage = morphology.erosion()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Abertura'):
-        changedImage = morphology.erosion()
         changedImage = morphology.opening()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Fechamento'):
+        changedImage = morphology.closure()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
 
     if event == 'Display':
