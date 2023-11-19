@@ -5,8 +5,8 @@ from classes.MathematicalMorphology import MathematicalMorphology
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
-originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/exemplo.png")
-changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/exemplo.png")
+originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
+changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
 morphology = MathematicalMorphology(originalImage, changedImage)
@@ -65,6 +65,9 @@ while True:
         sg.popup('Desenvolvedor: Joilson de Oliveira Telles', 'Versão do Software: 1.8', title="Sobre")
     elif event in ('Grayscale'):
         changedImage = filters.covertImageToGrayscale()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+    elif event in ('Passa Alta'):
+        changedImage = filters.sobel(200)
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Passa Baixa'):
         window['-BT_MEDIA-'].update(visible=True)

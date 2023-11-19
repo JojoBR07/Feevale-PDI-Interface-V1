@@ -1,3 +1,4 @@
+from PIL import Image
 import numpy as np
 from classes.File import File
 
@@ -178,4 +179,38 @@ class Filter:
         self.changedImage.image.save("attachment/contrast." + self.originalImage.getExtencial(),
                                      format=self.originalImage.image.format)
         self.changedImage.setFile("attachment/contrast." + self.originalImage.getExtencial())
+        return self.changedImage
+    
+    def sobel(self, threshold):
+        self.changedImage.image = Image.new('RGB', (self.changedImage.getHeight(), self.changedImage.getWidth()))
+        changedImageMap = self.changedImage.convertImageToMap()
+
+        gx_kernel = [[1, 0, -1], 
+                     [2, 0, -2], 
+                     [1, 0, -1]]
+        
+        gy_kernel = [[1, 2, 1], 
+                     [0, 0, 0], 
+                     [-1, -2, -1]]
+
+        for x in range(1, self.originalImage.getHeight()-1):
+            for y in range(1, self.originalImage.getWidth()-1):
+
+                g, gx, gy = 0, 0, 0
+                i, j = 0, 0
+
+                for i in range(3):
+                    for j in range(3):
+                        r, g, b, p = self.originalImage.image.getpixel((x+(i-1),  y+(j-1)))
+                        gx += r * gx_kernel[i][j]
+                        gy += r * gy_kernel[i][j]
+
+                        g = np.sqrt(gx**2) +  np.sqrt(gy**2)
+                        g = 0 if g <= threshold else 255
+
+                        changedImageMap[x, y] = (int(g), int(g), int(g))              
+
+        self.changedImage.image.save("attachment/sobel." + self.originalImage.getExtencial(),
+                                     format=self.originalImage.image.format)
+        self.changedImage.setFile("attachment/sobel." + self.originalImage.getExtencial())
         return self.changedImage
