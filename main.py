@@ -1,3 +1,4 @@
+from classes.Challenge import Challenge
 from classes.File import File
 from classes.Filter import Filter
 from classes.GeometricTransformations import GeometricTransformations
@@ -10,6 +11,7 @@ changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachmen
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
 morphology = MathematicalMorphology(originalImage, changedImage)
+challenge = Challenge(originalImage, changedImage)
 
 original = [
     [sg.Text(text='Imagem Original', font=('Arial Bold', 16), size=20, expand_x=True, justification='center')],
@@ -27,7 +29,7 @@ menu_def = [
     ['Transformações', ['Brilho', 'Contrate']],
     ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
-    ['Extração de Caracteristicas', ['---', '!&DESAFIO', '---']]
+    ['Extração de Caracteristicas', ['---', '!&Desafio', '---']]
 ]
 
 buttons = [
@@ -132,7 +134,9 @@ while True:
     elif event in ('Fechamento'):
         changedImage = morphology.closure()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
-
+    elif event in ('Desafio'):
+        challenge.identifyObject()
+        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     if event == 'Display':
         # Update the "output" text element
         # to be the value of "input" element
