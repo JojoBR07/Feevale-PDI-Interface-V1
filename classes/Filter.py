@@ -182,7 +182,7 @@ class Filter:
         return self.changedImage
     
     def sobel(self, threshold):
-        self.changedImage.image = Image.new('RGB', (self.changedImage.getHeight(), self.changedImage.getWidth()))
+        self.changedImage.image = Image.new('RGB', (self.changedImage.getWidth(), self.changedImage.getHeight()))
         changedImageMap = self.changedImage.convertImageToMap()
 
         gx_kernel = [[1, 0, -1], 
@@ -193,8 +193,8 @@ class Filter:
                      [0, 0, 0], 
                      [-1, -2, -1]]
 
-        for x in range(1, self.originalImage.getHeight()-1):
-            for y in range(1, self.originalImage.getWidth()-1):
+        for x in range(1, self.originalImage.getWidth()-1):
+            for y in range(1, self.originalImage.getHeight()-1):
 
                 g, gx, gy = 0, 0, 0
                 i, j = 0, 0

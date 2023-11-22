@@ -14,8 +14,8 @@ class MathematicalMorphology:
     def dilation(self):
         changedImageMap = self.changedImage.convertImageToMap()
 
-        for y in range(1, self.changedImage.getWidth()-2):
-            for x in range(1, self.changedImage.getHeight()-2):
+        for y in range(1, self.changedImage.getHeight()-2):
+            for x in range(1, self.changedImage.getWidth()-2):
 
                 red = 0
                 greem = 0
@@ -51,8 +51,8 @@ class MathematicalMorphology:
     def erosion(self):
         changedImageMap = self.changedImage.convertImageToMap()
 
-        for y in range(1, self.changedImage.getWidth()-2):
-            for x in range(1, self.changedImage.getHeight()-2):
+        for y in range(1, self.changedImage.getHeight()-2):
+            for x in range(1, self.changedImage.getWidth()-2):
 
                 red = 0
                 greem = 0
@@ -91,8 +91,8 @@ class MathematicalMorphology:
         changedImage = File(erosionImage.getFile())
         changedImageMap = changedImage.convertImageToMap()
 
-        for y in range(1, self.changedImage.getWidth()-2):
-            for x in range(1, self.changedImage.getHeight()-2):
+        for y in range(1, self.changedImage.getHeight()-2):
+            for x in range(1, self.changedImage.getWidth()-2):
 
                 red = 0
                 greem = 0
@@ -131,8 +131,8 @@ class MathematicalMorphology:
         changedImage = File(dilationImage.getFile())
         changedImageMap = changedImage.convertImageToMap()
 
-        for y in range(1, self.changedImage.getWidth()-2):
-            for x in range(1, self.changedImage.getHeight()-2):
+        for y in range(1, self.changedImage.getHeight()-3):
+            for x in range(1, self.changedImage.getWidth()-3):
 
                 red = 0
                 greem = 0

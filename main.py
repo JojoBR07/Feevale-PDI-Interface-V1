@@ -29,7 +29,7 @@ menu_def = [
     ['Transformações', ['Brilho', 'Contrate']],
     ['Transformações Geométricas', ['Transladar', 'Rotacionar', ['10°', '45°', '90°'], 'Espelhar', ['Horizontal', 'Vertical'], 'Escala', ['Aumentar', 'Diminuir']]],
     ['Morfologia Matemática', ['Dilatação', 'Erosão', 'Abertura', 'Fechamento']],
-    ['Extração de Caracteristicas', ['---', '!&Desafio', '---']]
+    ['Extração de Caracteristicas', ['---', '&Desafio', '---']]
 ]
 
 buttons = [

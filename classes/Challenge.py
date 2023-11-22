@@ -16,15 +16,22 @@ class Challenge:
 
     def identifyObject(self):
         originalImageMap = self.changedImage.convertImageToMap()
-        object1Map = self.object1.image.load()
+
+        object1 = Image.new('RGB', (self.originalImage.getWidth(), self.originalImage.getHeight()))
+        object1Map = object1.load()
+
+        object1X = []
+        object1Y = []
 
         for x in range(self.originalImage.getWidth()):
             for y in range(self.originalImage.getHeight()):
                 r, g, b, p = originalImageMap[x, y]
 
                 if r > 150:
-                    object1Map[x, y] = r, g, b
+                    object1Map[x, y] = 0, 0, 0
+                    object1X.append(x)
+                    object1Y.append(y)
 
-        self.object1.image.save("attachment/objeto1." + self.originalImage.getExtencial(),
+        self.object1.save("attachment/objeto1." + self.originalImage.getExtencial(),
                                      format=self.originalImage.image.format)
         return self.object1
