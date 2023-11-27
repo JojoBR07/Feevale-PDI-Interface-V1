@@ -1,4 +1,5 @@
 from PIL import Image
+import os
 
 class File:
 
@@ -22,11 +23,11 @@ class File:
 
     def setFile(self, path):
         self.path = path
-        self.image = Image.open(path)
+        self.image = Image.open(self.path)
         self.width = self.image.width
         self.height = self.image.height
-        self.extencial = path.split(".")[-1]
-        self.name = path.split("/")[-1]
+        self.extencial = self.path.split(".")[-1]
+        self.name = self.path.split("/")[-1]
 
     def getFile(self):
         return self.path
@@ -45,3 +46,22 @@ class File:
 
     def convertImageToMap(self):
         return self.image.load()
+    
+    def converter_jpeg_para_png(self, jpeg_path):
+        try:
+            # Abre a imagem JPEG
+            imagem = Image.open(jpeg_path)
+            nome_base = os.path.basename(imagem.fileneame.split("/")[-1])  # Obtém o nome do arquivo com extensão
+            nome_sem_extensao, _ = os.path.splitext(nome_base) 
+
+            # Salva a imagem como PNG
+            imagem.save(imagem.filename, 'PNG')
+
+            print(f"Conversão concluída: {jpeg_path} para {imagem.filename}")
+
+            return imagem.filename
+
+        except Exception as e:
+            print(f"Erro ao converter a imagem: {e}")
+
+        return None

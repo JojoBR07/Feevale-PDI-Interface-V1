@@ -15,8 +15,8 @@ class GeometricTransformations:
     def translateImage(self, translateX, translateY):
         self.changedImage.image = Image.new('RGB', (self.originalImage.getHeight(), self.originalImage.getWidth()), (0, 0, 0))
 
-        for y in range(self.originalImage.getHeight()):
-            for x in range(self.originalImage.getWidth()):
+        for x in range(self.originalImage.getHeight()):
+            for y in range(self.originalImage.getWidth()):
                 novo_x = x - translateX
                 novo_y = y - translateY
 

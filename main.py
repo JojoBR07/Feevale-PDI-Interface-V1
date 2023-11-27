@@ -6,8 +6,8 @@ from classes.MathematicalMorphology import MathematicalMorphology
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
-originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
-changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
+originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/0.png")
+changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/0.png")
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
 morphology = MathematicalMorphology(originalImage, changedImage)
@@ -58,9 +58,14 @@ while True:
     if event in (None, 'Sair'):
         break
     elif event in ('Abrir imagem'):
-        originalImage.setFile(sg.popup_get_file('Selecione um arquivo', title="Arquivos"))
-        changedImage.setFile(originalImage.getFile())
-        window["-ORIGINAL_IMAGE-"].update(originalImage.getFile())
+        FileName = sg.popup_get_file('Selecione um arquivo', title="Arquivos")
+        
+        if FileName.split(".")[-1] in ("png", ".png"):
+            originalImage.setFile(FileName)
+            changedImage.setFile(originalImage.getFile())
+            window["-ORIGINAL_IMAGE-"].update(originalImage.getFile())
+        else: 
+            sg.popup_error("Utilize arquivos PNG")
     elif event in ('Salvar imagem'):
         changedImage.saveFile(sg.popup_get_folder('Selecione um diretório', title="Salvar imagem"))
     elif event in ('Sobre'):
@@ -135,8 +140,14 @@ while True:
         changedImage = morphology.closure()
         window["-CHANGED_IMAGE-"].update(changedImage.getFile())
     elif event in ('Desafio'):
-        challenge.identifyObject()
-        window["-CHANGED_IMAGE-"].update(changedImage.getFile())
+        challenge.identifyObjectNumber(sg.popup_get_file('Selecione um arquivo - Identificação de Número', title="Arquivos"))
+        challenge.identifyObjectOperation(sg.popup_get_file('Selecione um arquivo - Identificação de Operador (+ - * /)', title="Arquivos"))
+        challenge.identifyObjectNumber2(sg.popup_get_file('Selecione um arquivo - Identificação de Número', title="Arquivos"))
+
+        sg.popup_ok(challenge.calculator())
+
+        window["-ORIGINAL_IMAGE-"].update()
+        window["-CHANGED_IMAGE-"].update()
     if event == 'Display':
         # Update the "output" text element
         # to be the value of "input" element
