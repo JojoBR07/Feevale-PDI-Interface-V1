@@ -148,13 +148,13 @@ class Challenge:
             result = value1 + value3
             operator = "+"
         elif value2 == 1:
-            result = value1 - value3
-            operator = "-"
+            result = value1 / value3
+            operator = "/"
         elif value2 == 2:
             result = value1 * value3
             operator = "*"
         else:
-            result = value1 / value3
-            operator = "/"
+            result = value1 - value3
+            operator = "-"
         
         return (f"{value1} {operator} {value3} = {result}")

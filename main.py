@@ -6,8 +6,8 @@ from classes.MathematicalMorphology import MathematicalMorphology
 import PySimpleGUI as sg
 
 sg.theme('BluePurple')
-originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/0.png")
-changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/0.png")
+originalImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
+changedImage = File("C:/Users/Pedro/Documents/Feevale-PDI-Interface-V1/attachment/Lena.png")
 filters = Filter(originalImage, changedImage)
 transformations = GeometricTransformations(originalImage, changedImage)
 morphology = MathematicalMorphology(originalImage, changedImage)
